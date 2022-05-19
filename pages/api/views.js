@@ -42,7 +42,7 @@ export default async function views(req, res) {
             { slug }
         );
 
-        await redis.setex(`${ip}:${slug}`, 3600, "1");
+        await redis.setex(`${ip}:${slug}`, 300, "1");
 
         res.status(201).end();
     }
