@@ -8,17 +8,26 @@ import Hero from "../components/Hero";
 
 function SearchBar() {
     return (
-        <form className="flex flex-row lg:w-3/4 lg:mx-auto gap-x-2">
+        <form
+            className="flex flex-row lg:w-3/4 lg:mx-auto gap-x-2"
+            aria-disabled={true}
+        >
             <label htmlFor="recipe-search" className="hidden">
                 Search for Recipes
             </label>
             <input
                 id="recipe-search"
                 type="search"
-                placeholder="Search for Recipes"
+                placeholder="Not many recipes to search for..."
                 required={true}
+                className="disabled disabled:opacity-75"
+                disabled={true}
             />
-            <button type="submit" className="primary-btn">
+            <button
+                type="submit"
+                className="primary-btn disabled"
+                disabled={true}
+            >
                 Search
             </button>
         </form>
