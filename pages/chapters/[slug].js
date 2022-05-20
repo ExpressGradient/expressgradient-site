@@ -23,7 +23,7 @@ export default function Chapter({ chapter }) {
             <main>
                 <section>
                     <article
-                        className="prose prose-invert"
+                        className="w-full mx-auto prose prose-invert lg:prose-lg"
                         dangerouslySetInnerHTML={{
                             __html: chapter.content,
                         }}
