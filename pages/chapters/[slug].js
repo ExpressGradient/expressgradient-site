@@ -3,16 +3,15 @@ import client from "../../utils/gql_client";
 import Head from "next/head";
 import Hero from "../../components/Hero";
 import Link from "next/link";
+import { marked } from "marked";
+import hljs from "highlight.js";
 
 export default function Chapter({ chapter }) {
     return (
         <>
             <Head>
-                <title>ExpressGradient</title>
-                <meta
-                    name="desc"
-                    content="The &ldquo;Full-Stack Web&rdquo; Cookbook"
-                />
+                <title>ExpressGradient - {chapter.name}</title>
+                <meta name="desc" content={chapter.description} />
             </Head>
 
             <header>
@@ -26,7 +25,7 @@ export default function Chapter({ chapter }) {
                     <article
                         className="prose prose-invert"
                         dangerouslySetInnerHTML={{
-                            __html: chapter.content.html,
+                            __html: chapter.content,
                         }}
                     />
                 </section>
@@ -41,10 +40,10 @@ export default function Chapter({ chapter }) {
                     </h3>
 
                     <ul className="bulleted-list">
-                        {chapter.category.chapters.map((chapter) => (
+                        {chapter.category.chapters.map((otherChapter) => (
                             <li key={chapter.id}>
-                                <Link href={`/chapters/${chapter.slug}`}>
-                                    <a>{chapter.name}</a>
+                                <Link href={`/chapters/${otherChapter.slug}`}>
+                                    <a>{otherChapter.name}</a>
                                 </Link>
                             </li>
                         ))}
@@ -99,12 +98,11 @@ export async function getStaticProps({ params }) {
                 id
                 name
                 slug
+                description
                 createdAt
                 updatedAt
                 views
-                content {
-                    html
-                }
+                content
                 category {
                     id
                     name
@@ -121,6 +119,12 @@ export async function getStaticProps({ params }) {
     const { chapter } = await client.request(getChapterBySlugQuery, {
         slug: params.slug,
     });
+
+    marked.setOptions({
+        highlight: (code) => hljs.highlightAuto(code).value,
+    });
+
+    chapter.content = marked.parse(chapter.content);
 
     return { props: { chapter }, revalidate: 300 };
 }

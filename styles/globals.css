@@ -18,6 +18,10 @@ input {
     @apply flex flex-col space-y-1 mt-2 px-6 list-disc list-inside
 }
 
-.bulleted-list li {
+.bulleted-list a {
     @apply text-sm text-gray-200 hover:underline hover:underline-offset-1
+}
+
+.bulleted-list li {
+    @apply text-sm text-gray-200
 }

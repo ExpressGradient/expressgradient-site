@@ -32,6 +32,10 @@ export default function Document() {
                     href="/favicon-16x16.png"
                 />
                 <link rel="manifest" href="/site.webmanifest" />
+                <link
+                    rel="stylesheet"
+                    href="https://highlightjs.org/static/demo/styles/atom-one-dark-reasonable.css"
+                />
             </Head>
             <body>
                 <Main />
