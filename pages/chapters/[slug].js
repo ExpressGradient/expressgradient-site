@@ -122,5 +122,5 @@ export async function getStaticProps({ params }) {
         slug: params.slug,
     });
 
-    return { props: { chapter } };
+    return { props: { chapter }, revalidate: 300 };
 }
