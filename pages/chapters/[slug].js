@@ -5,6 +5,7 @@ import Hero from "../../components/Hero";
 import Link from "next/link";
 import { marked } from "marked";
 import hljs from "highlight.js";
+import redis from "../../utils/redis_client";
 
 export default function Chapter({ chapter }) {
     return (
@@ -23,7 +24,7 @@ export default function Chapter({ chapter }) {
             <main>
                 <section>
                     <article
-                        className="w-full mx-auto prose prose-invert lg:prose-lg"
+                        className="w-full mx-auto prose prose-invert lg:prose-base max-w-3xl"
                         dangerouslySetInnerHTML={{
                             __html: chapter.content,
                         }}
@@ -101,7 +102,6 @@ export async function getStaticProps({ params }) {
                 description
                 createdAt
                 updatedAt
-                views
                 content
                 category {
                     id
@@ -125,6 +125,8 @@ export async function getStaticProps({ params }) {
     });
 
     chapter.content = marked.parse(chapter.content);
+
+    chapter.views = await redis.get(`expressgradient:${chapter.slug}`);
 
     return { props: { chapter }, revalidate: 300 };
 }
