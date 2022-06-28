@@ -24,7 +24,7 @@ export default function Chapter({ chapter }) {
             <main>
                 <section>
                     <article
-                        className="w-full mx-auto prose prose-invert lg:prose-base max-w-3xl"
+                        className="w-full max-w-3xl mx-auto prose prose-invert lg:prose-base"
                         dangerouslySetInnerHTML={{
                             __html: chapter.content,
                         }}
@@ -61,7 +61,7 @@ export default function Chapter({ chapter }) {
                             {new Date(chapter.createdAt).toLocaleString()}
                         </li>
                         <li>
-                            Created At:{" "}
+                            Updated At:{" "}
                             {new Date(chapter.updatedAt).toLocaleString()}
                         </li>
                     </ul>
